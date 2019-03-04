@@ -1,3 +1,5 @@
+import java.util.concurrent.TimeUnit;
+
 public class LiftOff implements Runnable {
     protected int countDown = 10;
     private static int taskCount = 0;
@@ -9,9 +11,14 @@ public class LiftOff implements Runnable {
 
     @Override
     public void run() {
-        while (countDown-- > 0){
-            System.out.println(status());
-            Thread.yield();
+        try {
+            while (countDown-- > 0){
+                System.out.println(status());
+    //            Thread.yield();
+                    TimeUnit.MILLISECONDS.sleep(100);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
